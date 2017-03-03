@@ -2,6 +2,7 @@ import axios from 'axios';
 import formurlencoded from 'form-urlencoded';
 import store from '../store';
 import {UpdateMinionStatus} from '../minions/actions';
+import {RunJob} from '../jobs/actions';
 
 class SaltLowStateService {
     Run(params) {
@@ -28,6 +29,10 @@ function updateMinionDocs() {
     service.Run({client: 'local_async', 'fun': 'sys.doc', 'tgt': '*', 'arg': []});
 }
 
+export function updateFunctionsList() {
+    RunJob('glob', '*', 'sys.list_functions', [], false);
+}
+
 
 function schedule(target, interval) {
     return function() {
@@ -45,3 +50,4 @@ function schedule(target, interval) {
 
 // store.select(['auth', 'token']).on('update', schedule(updateMinionDocs, 10000));
 // schedule(updateMinionDocs, 10000)();
+store.select(['auth', 'token']).on('update', updateFunctionsList);

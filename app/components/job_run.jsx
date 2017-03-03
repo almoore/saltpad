@@ -12,6 +12,7 @@ import {If} from './shared/templates';
 import JobsService from '../jobs/services';
 import {RunJob} from '../jobs/actions';
 import gen_path from '../path_utils';
+import {updateFunctionsList} from '../services/auto_updater.js';
 
 class MatcherSelect extends React.Component {
 
@@ -68,6 +69,10 @@ class FunctionSelect extends React.Component {
   render() {
 
     var fonctions = this.props.functions;
+
+    if (fonctions.length == 0) {
+      updateFunctionsList()
+    }
 
     var async_options = (input, callback) => {
         let options = _.filter(fonctions, (fonction) => _.includes(fonction.value, input));

@@ -70,7 +70,7 @@ class FunctionSelect extends React.Component {
 
     var fonctions = this.props.functions;
 
-    if (fonctions.length == 0) {
+    if (!fonctions) {
       updateFunctionsList()
     }
 
@@ -316,4 +316,3 @@ JobRun.contextTypes = {
 }
 
 export default ModuleFunctionsStoreHEC(MinionsStoreHEC(JobRun));
-

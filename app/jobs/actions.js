@@ -7,7 +7,7 @@ import {JobEventToJobStore, ArgSpecParser} from './utils';
 function UpdateJobs(jobs) {
     for (let job_id in jobs) {
         let job_data = jobs[job_id];
-        job_data['StartTime'] = moment(job_data['StartTime']).unix()
+        job_data['StartTime'] = moment(job_data['StartTime'], 'YYYY, MMM DD HH:mm:ss.SSSSSS').unix()
         job_data['jid'] = job_id;
         let path = ['jobs', job_id];
         if(store.exists(path)) {

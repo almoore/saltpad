@@ -70,7 +70,7 @@ class FunctionSelect extends React.Component {
 
     var fonctions = this.props.functions;
 
-    if (!fonctions) {
+    if (!fonctions || fonctions.length == 0) {
       updateFunctionsList()
     }
 

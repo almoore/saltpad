@@ -22,7 +22,11 @@ class SingleChunkResult extends React.Component {
       let className=`list-group-item list-group-item-${statusMap[status]}`
 
       let content = _.map(_.toPairs(this.props.chunk), (chunk) => {
-          return <li key={chunk[0]}>{chunk[0]}: <pre>{JSON.stringify(chunk[1])}</pre></li>;
+          let pre_string = JSON.stringify(chunk[1], null, 2  )
+          if(chunk[1] && typeof chunk[1].diff !== undefined) {
+              let pre_string = chunk[1].diff
+          }
+          return <li key={chunk[0]}>{chunk[0]}: <pre>{pre_string}</pre></li>;
       });
 
       return (<li className={className}>

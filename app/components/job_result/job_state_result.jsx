@@ -5,7 +5,9 @@ import JobsStoreHEC from '../../jobs/hec'
 import moment from 'moment';
 import {HidingHEC, HidingPanel} from '../shared/hiding';
 import {If} from '../shared/templates';
+import {ReactHighlightStyle} from '../../../node_modules/highlight.js/styles/github-gist.css';
 
+var Highlight = require('react-highlight');
 
 var statusMap = {"Error": "danger", "Dependency failed": "warning", "Changes": "info",
                  "Success": "success"}
@@ -22,9 +24,14 @@ class SingleChunkResult extends React.Component {
       let className=`list-group-item list-group-item-${statusMap[status]}`
 
       let content = _.map(_.toPairs(this.props.chunk), (chunk) => {
+
           let pre_string = JSON.stringify(chunk[1], null, 2  )
-          if(chunk[1] && typeof chunk[1].diff !== undefined) {
-              let pre_string = chunk[1].diff
+          if(chunk[1] && typeof chunk[1].diff === 'string') {
+              return <li key={chunk[0]}>{chunk[0]}:
+                        <Highlight className='diff'>
+                            {chunk[1].diff}
+                        </Highlight>
+                    </li>;
           }
           return <li key={chunk[0]}>{chunk[0]}: <pre>{pre_string}</pre></li>;
       });

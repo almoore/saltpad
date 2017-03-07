@@ -50,6 +50,7 @@ SingleChunkResult = HidingHEC(SingleChunkResult);
 
 export class StateResultStatusMinion extends React.Component {
   render() {
+
       let status = this.props.status;
       let jobs = this.props.jobs;
       let total_chunk_number = this.props.chunk_number;
@@ -112,9 +113,10 @@ export class StateResultMinion extends React.Component  {
               if (chunk[1].result === false) {
                   return "Error";
               }
+              return "Undefined"
           });
 
-          let status_order = ["Error", "Dependency failed", "Changes", "Success"]
+          let status_order = ["Error", "Dependency failed", "Changes", "Success", "Undefined"]
 
           var chunk_number = _.size(job_data.return);
           var heading = `${minion} - ${chunk_number} steps: ${_.size(grouped_chunks["Error"])} in errors, ${_.size(grouped_chunks["Dependency failed"])} requirements failed, ${_.size(grouped_chunks["Changes"])} changes and ${_.size(grouped_chunks["Success"])} in success.`;
